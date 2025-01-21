@@ -3,7 +3,9 @@ import config from 'qonto-first-project/config/environment';
 
 export default class Router extends EmberRouter {
   location = config.locationType;
-  rootURL = config.rootURL;
+  rootURL = '/';
 }
 
-Router.map(function () {});
+Router.map(function () {
+  this.route('homepage', { path: '/' }); // Associe la racine `/` à la route homepage
+});
