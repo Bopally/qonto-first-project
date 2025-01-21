@@ -1,0 +1,27 @@
+<div>
+  <div class="new-task-container">
+    <label for="new-task-input">New Task:</label>
+    <input
+      id="new-task-input"
+      value={{this.newTask}}
+      type="text"
+      placeholder="Write a new task..."
+      {{on "input" this.createNewTask}}
+    />
+  </div>
+
+  {{! bouton pour ajouter la tâche }}
+  <button type="button" {{on "click" this.addTask}}>Add</button>
+
+  <ul>
+    {{#each this.tasks as |task index|}}
+      <li>
+        {{task}}
+        <button
+          type="button"
+          {{on "click" (fn this.removeTask index)}}
+        >Delete</button>
+      </li>
+    {{/each}}
+  </ul>
+</div>
