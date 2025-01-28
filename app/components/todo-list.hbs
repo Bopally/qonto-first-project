@@ -16,11 +16,35 @@
   <ul>
     {{#each this.tasks as |task index|}}
       <li>
-        {{task}}
-        <button
-          type="button"
-          {{on "click" (fn this.removeTask index)}}
-        >Delete</button>
+        {{#if (eq this.editingIndex index)}}
+          {{! Mode édition : Champ de saisie pour modifier la tâche }}
+          <input
+            id="edited-task-input"
+            value={{this.editedTask}}
+            type="text"
+            placeholder="Edit your task..."
+            {{on "input" this.updateEditedTask}}
+          />
+          <button
+            type="button"
+            {{on "click" (fn this.saveTask index)}}
+          >Save</button>
+          <button
+            type="button"
+            {{on "click" this.cancelEditing}}
+          >Cancel</button>
+        {{else}}
+          {{! Mode affichage normal }}
+          {{task}}
+          <button
+            type="button"
+            {{on "click" (fn this.startEditing index task)}}
+          >Edit</button>
+          <button
+            type="button"
+            {{on "click" (fn this.removeTask index)}}
+          >Delete</button>
+        {{/if}}
       </li>
     {{/each}}
   </ul>
